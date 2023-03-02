@@ -1,0 +1,142 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football. Drag&Drop</title>
+</head>
+<style>
+    body {
+        background-color: green;
+
+    }
+
+    .field {
+        width: 100%;
+        height: 100%;
+    }
+
+    .gates1,
+    .gates2 {
+        border: 4px solid white;
+        border-radius: 5px;
+        height: 30vh;
+        width: 15vh;
+    }
+
+    .gates1 {
+        position: absolute;
+        left: 0px;
+        bottom: 35vh;
+        justify-content: left;
+    }
+
+    .gates2 {
+        position: absolute;
+        right: 0px;
+        bottom: 35vh;
+    }
+
+    .ball {
+        width: 80px;
+        position: absolute;
+        top: 46.5%;
+        left: 48.5%;
+
+    }
+   
+    .score-wrapper>div:first-of-type {
+        display: flex;
+        margin: 0 auto;
+    }
+    .score-wrapper>div:last-of-type {
+        display: flex;
+        border: 2px solid white;
+        width: 20%;
+        margin: 5px 25px;
+        font-size: 40px;
+        padding: 20px;
+    }
+    .score-title{
+        border: 2px solid white;
+        width: 10%;
+        font-size: 20px;
+        margin: 10px;
+        padding: 10px;
+        color: white;
+    }
+    .score-team1{
+        padding-left: 40%;
+       
+    }
+    
+
+</style>
+
+<body>
+    <div class="score-wrapper">
+        <div>
+            <div class="score-title">Team 1</div>
+            <div class="score-title">Team 2</div>
+        </div>
+        <div>
+            <div class="score-team1">0</div>
+            <div> : </div>
+            <div class="score-team2">0</div>
+        </div>
+    </div>
+    <div class="field">
+        <div class="gates1"></div>
+        <img class="ball" src="./football.png" draggable="true">
+        <div class="gates2"></div>
+    </div>
+    <script>
+        const field = document.querySelector('.field');
+        const ball = document.querySelector('.ball');
+        const gates2 = document.querySelector('.gates2');
+        const gates1 = document.querySelector('.gates1');
+        const scoreTeam1 = document.querySelector('.score-team1');
+        const scoreTeam2 = document.querySelector('.score-team2');
+        let countTeam1 = 0;
+        let countTeam2 = 0;
+
+
+
+        //field.addEventListener('dragover', preventEvent);
+        gates2.addEventListener('dragover', preventEvent);
+        gates1.addEventListener('dragover', preventEvent);
+
+        function preventEvent(e) {
+            e.preventDefault();
+        }
+
+        //field.addEventListener('drop', dropElement);
+        gates2.addEventListener('drop', dropElement);
+        gates1.addEventListener('drop', dropElement);
+
+        function dropElement(e) {
+            this.appendChild(ball);
+            ball.style.left = e.offsetX - ball.offsetWidth / 2 + 'px';
+            ball.style.top = e.offsetY - ball.offsetHeight / 2 + 'px';
+        }
+
+        /* Підрахунок голів! */
+
+        gates1.addEventListener('drop', scoringTeam2);
+		gates2.addEventListener('drop', scoringTeam1);
+
+        function scoringTeam2(){
+            scoreTeam2.innerHTML = ++countTeam2;
+        }
+        function scoringTeam1(){
+            scoreTeam1.innerHTML = ++countTeam1;
+
+        }
+
+       
+
+    </script>
+</body>
+
+</html>
