@@ -13,8 +13,11 @@
     }
 
     .field {
-        width: 100%;
-        height: 100%;
+        position: relative;
+        background-color: lightgreen;
+        width: 83%;
+        margin: auto;
+        height: 60%;
     }
 
     .gates1,
@@ -45,11 +48,12 @@
         left: 48.5%;
 
     }
-   
+
     .score-wrapper>div:first-of-type {
         display: flex;
         margin: 0 auto;
     }
+
     .score-wrapper>div:last-of-type {
         display: flex;
         border: 2px solid white;
@@ -58,7 +62,8 @@
         font-size: 40px;
         padding: 20px;
     }
-    .score-title{
+
+    .score-title {
         border: 2px solid white;
         width: 10%;
         font-size: 20px;
@@ -66,12 +71,11 @@
         padding: 10px;
         color: white;
     }
-    .score-team1{
-        padding-left: 40%;
-       
-    }
-    
 
+    .score-team1 {
+        padding-left: 40%;
+
+    }
 </style>
 
 <body>
@@ -86,11 +90,11 @@
             <div class="score-team2">0</div>
         </div>
     </div>
-    <div class="field">
-        <div class="gates1"></div>
-        <img class="ball" src="./football.png" draggable="true">
-        <div class="gates2"></div>
-    </div>
+    <div class="field"></div>
+    <div class="gates1"></div>
+    <img class="ball" src="./football.png" draggable="true">
+    <div class="gates2"></div>
+
     <script>
         const field = document.querySelector('.field');
         const ball = document.querySelector('.ball');
@@ -103,7 +107,7 @@
 
 
 
-        //field.addEventListener('dragover', preventEvent);
+        field.addEventListener('dragover', preventEvent);
         gates2.addEventListener('dragover', preventEvent);
         gates1.addEventListener('dragover', preventEvent);
 
@@ -111,7 +115,7 @@
             e.preventDefault();
         }
 
-        //field.addEventListener('drop', dropElement);
+        field.addEventListener('drop', dropElement);
         gates2.addEventListener('drop', dropElement);
         gates1.addEventListener('drop', dropElement);
 
@@ -119,22 +123,36 @@
             this.appendChild(ball);
             ball.style.left = e.offsetX - ball.offsetWidth / 2 + 'px';
             ball.style.top = e.offsetY - ball.offsetHeight / 2 + 'px';
+            
+          
+
         }
 
         /* Підрахунок голів! */
 
         gates1.addEventListener('drop', scoringTeam2);
-		gates2.addEventListener('drop', scoringTeam1);
+        gates2.addEventListener('drop', scoringTeam1);
 
-        function scoringTeam2(){
+        function scoringTeam2() {
             scoreTeam2.innerHTML = ++countTeam2;
+            returnToStartPosition();
+            
         }
-        function scoringTeam1(){
+        function scoringTeam1() {
             scoreTeam1.innerHTML = ++countTeam1;
-
+            returnToStartPosition();
         }
 
+    
+
+      function returnToStartPosition() {
+        ball.style.top = '46.5%';
+        ball.style.left= '48.5%';
+            
+        }
        
+
+
 
     </script>
 </body>
